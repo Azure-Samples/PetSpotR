@@ -2,7 +2,15 @@
     "name": "PetSpotR",
     // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
     "image": "mcr.microsoft.com/devcontainers/dotnet:0-7.0",
-    "workspaceFolder": "/workspace",
+    "workspaceFolder": "/workspaces/PetSpotR",
+
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": "bash ./.devcontainer/post-setup.sh",
+
+    "runArgs": [
+      "--privileged",
+		  "--init"
+    ],
   
     // Features to add to the dev container. More info: https://containers.dev/features.
     "features": {
@@ -37,8 +45,6 @@
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [5000, 5001],
   
-    // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "./.devcontainer/post-setup.sh"
     // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
     // "remoteUser": "root"
   }
