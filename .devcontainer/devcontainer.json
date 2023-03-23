@@ -5,8 +5,7 @@
     "workspaceFolder": "/workspaces/PetSpotR",
 
     "onCreateCommand": "bash ./.devcontainer/on-setup.sh",
-    "postCreateCommand": "bash ./.devcontainer/post-setup.sh",
-
+    
     "runArgs": [
       "--privileged",
 		  "--init"
@@ -23,14 +22,14 @@
       // Configure properties specific to VS Code.
       "vscode": {
         "settings": {},
-        "extensions": ["ms-azuretools.vscode-dapr", "ms-dotnettools.csharp", "ms-azuretools.vscode-docker", "ms-python.python"]
+        "extensions": ["ms-azuretools.vscode-dapr", "ms-dotnettools.csharp", "ms-azuretools.vscode-docker", "ms-python.python", "dunn.redis"]
       }
     },
   
     "remoteEnv": {
       "PATH": "${containerEnv:PATH}:/home/vscode/.dapr/bin",
       "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
-    },
+    }
   
     // Use 'portsAttributes' to set default properties for specific forwarded ports.
     // More info: https://containers.dev/implementors/json_reference/#port-attributes
