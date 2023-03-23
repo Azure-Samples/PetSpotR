@@ -4,7 +4,7 @@
     "image": "mcr.microsoft.com/devcontainers/dotnet:0-7.0",
     "workspaceFolder": "/workspaces/PetSpotR",
 
-    // Use 'postCreateCommand' to run commands after the container is created.
+    "onCreateCommand": "bash ./.devcontainer/on-setup.sh",
     "postCreateCommand": "bash ./.devcontainer/post-setup.sh",
 
     "runArgs": [
