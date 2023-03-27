@@ -13,7 +13,10 @@ param keyVaultId string
 @description('ARM ID of the Azure Container Registry.')
 param containerRegistryId string
 
-resource workspace 'Microsoft.MachineLearningServices/workspaces@2022-10-01' = {
+@description('ARM ID of the Azure Application Insights resource.')
+param applicationInsightsId string
+
+resource workspace 'Microsoft.MachineLearningServices/workspaces@2022-12-01-preview' = {
   name: workspaceName
   location: location
   properties: {
@@ -21,6 +24,7 @@ resource workspace 'Microsoft.MachineLearningServices/workspaces@2022-10-01' = {
     storageAccount: storageAccountId
     keyVault: keyVaultId
     containerRegistry: containerRegistryId
+    applicationInsights: applicationInsightsId
   }
   identity: {
     type: 'SystemAssigned'

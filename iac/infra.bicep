@@ -30,6 +30,13 @@ module registry 'infra/container-registry.bicep' = {
   }
 }
 
+module ai 'infra/ai.bicep' = {
+  name: 'ai'
+  params: {
+    location: location
+  }
+}
+
 module aml 'infra/aml.bicep' = {
   name: 'aml'
   params: {
@@ -37,6 +44,7 @@ module aml 'infra/aml.bicep' = {
     containerRegistryId: registry.outputs.registryId
     keyVaultId: vault.outputs.vaultId
     storageAccountId: storage.outputs.storageAccountId
+    applicationInsightsId: ai.outputs.aiId
   }
 }
 
