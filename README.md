@@ -120,7 +120,13 @@ The services in this application can be run locally using the Dapr CLI. This is 
    docker push myacr.azurecr.io/petspotr:latest
    docker push myacr.azurecr.io/frontend:latest
    ```
-1. Deploy the application
+1. Deploy Dapr components
+   ```bash
+   kubectl apply -f ./iac/dapr/azure/images.yaml
+   kubectl apply -f ./iac/dapr/azure/pets.yaml
+   kubectl apply -f ./iac/dapr/azure/pubsub.yaml
+   ```
+3. Deploy the application
    ```bash
    az deployment group deployment create --resource-group myrg --template-file ./iac/app.json
    ```
