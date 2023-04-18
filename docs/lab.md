@@ -1,4 +1,4 @@
-# 2023 Build Lab
+# Welcome @lab.User.FirstName!
 
 This guide will walk you through a set of exercises to run, deploy, and scale PetSpotR.
 
