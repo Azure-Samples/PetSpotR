@@ -1,4 +1,4 @@
-# Welcome @lab.User.FirstName!
+# Welcome to the PetSpotR Build Lab
 
 This guide will walk you through a set of exercises to run, deploy, and scale PetSpotR.
 
