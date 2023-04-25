@@ -16,13 +16,6 @@ module storage 'infra/storage.bicep' = {
   }
 }
 
-module vault 'infra/keyvault.bicep' = {
-  name: 'vault'
-  params: {
-    location: location
-  }
-}
-
 module registry 'infra/container-registry.bicep' = {
   name: 'registry'
   params: {
@@ -30,25 +23,8 @@ module registry 'infra/container-registry.bicep' = {
   }
 }
 
-module aml 'infra/aml.bicep' = {
-  name: 'aml'
-  params: {
-    location: location
-    containerRegistryId: registry.outputs.registryId
-    keyVaultId: vault.outputs.vaultId
-    storageAccountId: storage.outputs.storageAccountId
-  }
-}
-
 module servicebus 'infra/servicebus.bicep' = if (mode == 'cloud') {
   name: 'servicebus'
-  params: {
-    location: location
-  }
-}
-
-module cosmos 'infra/cosmosdb.bicep' = if (mode == 'cloud') {
-  name: 'cosmos'
   params: {
     location: location
   }
@@ -61,9 +37,3 @@ module aks 'infra/aks.bicep' = if (mode == 'cloud') {
   }
 }
 
-module loadTest 'infra/loadtest.bicep' = if (mode == 'cloud') {
-  name: 'loadtest'
-  params: {
-    location: location
-  }
-}
