@@ -326,7 +326,7 @@ We're now ready to deploy PetSpotR to Azure. You'll use Bicep to model your infr
 
 ### 3.2 Deploy your infrastructure to Azure
 
-You're now ready to deploy your infrastructure to Azure. You'll use the Azure CLI to deploy your infrastructure:
+You're now ready to deploy your application to Azure. You'll use the Azure CLI to deploy your infrastructure:
 
 1. Run `az login` to log in to Azure. You'll be prompted to open a browser window to authenticate. Use these credentials:
    - @lab.CloudPortalCredential(User1).Username
@@ -334,4 +334,100 @@ You're now ready to deploy your infrastructure to Azure. You'll use the Azure CL
 
     _You can also click on the Resources tab to view these credentials._
 
-2. Deploy your infrastructure using `az deployment create`
+2. Deploy your iBicep file using `az deployment create`
+
+   ```bash
+   az deployment create --location westus2 --template-file ./iac/infra.bicep
+   ```
+3. You can visit https://portal.azure.com to see the resources being deployed under your new `build-lab` resource group.
+    ![Azure resources](./images/17-azureportal.png)
+
+### 3.3 Configure your cluster
+
+Now that you've deployed your infrastructure, you're ready to configure your cluster. You'll use the Helm CLI to install the Dapr and KEDA Helm charts:
+
+1. Run `az aks get-credentials` to get the credentials for your AKS cluster:
+
+   ```bash
+   az aks get-credentials --resource-group build-lab --name petspotr
+   ```
+
+2. Run `helm repo add` to add the Dapr and KEDA Helm repositories:
+
+   ```bash
+   helm repo add dapr https://daprio.azurecr.io/helm/v1/repo
+   helm repo add kedacore https://kedacore.github.io/charts
+   ```
+
+3. Run `helm repo update` to update the Helm repositories:
+
+   ```bash
+    helm repo update
+    ```
+4. Run `helm install` to install the Dapr and KEDA Helm charts:
+
+   ```bash
+   helm install dapr dapr/dapr --namespace dapr-system
+   helm install keda kedacore/keda --namespace keda
+   ```
+
+Done! You now have Dapr and KEDA installed on your AKS cluster.
+
+### 3.4 Deploy Dapr cloud components
+
+Now that you've installed Dapr on your cluster, you're ready to deploy the Dapr cloud components. When running PetSpotR locally, you used the Redis state store and pub/sub components. In Azure, you'll use an Azure Storage Account and Azure Service Bus.
+
+1. Open `iac/dapr/azure/statestore.yaml` to open the YAML template for your Dapr state store component:
+
+    ```bash
+    code ./iac/dapr/azure/statestore.yaml
+    ```
+
+    You can also view images.yaml and pubsub.yaml.
+
+2. Deploy these components using `kubectl apply`:
+
+   ```bash
+   kubectl apply -f ./iac/dapr/azure
+   ```
+
+3. Done! You've now added Dapr components to your cluster.
+
+### 3.5 Deploy your application to Azure
+
+You're now ready to deploy your application to Azure. You'll use the Azure CLI to deploy your application:
+
+1. Open `iac/app.bicep` to open the Bicep template for your application:
+
+    ```bash
+    code ./iac/app.bicep
+    ```
+
+    Notice the use of modules for the frontend, backend, ingress, and secrets.
+
+2. Open `iac/app/frontend.bicep` to see a set of Kubernetes resources. That's right, Bicep does Kubernetes!
+
+    ```bash
+    code ./iac/app/frontend.bicep
+    ```
+
+3. Deploy your application using `az deployment create`
+
+   ```bash
+   az deployment create --location westus2 --template-file ./iac/app.bicep
+   ```
+
+### 3.6 Access the PetSpotR application
+
+Now that you've deployed your infrastructure and application you're ready to access the PetSpotR application!
+
+1. In the [Azure portal](https://portal.azure.com) navigate to your `build-lab` resource group and open the 'petspotr' AKS cluster.
+1. Select `Services and ingresses` and click on the external IP address of your cluster. You should see the PetSpotR application:
+   ![PetSpotR application](./images/18-petspotr.png)
+1. Try out the application by reporting a lost pet
+1. Open the storage account in the Azure portal and navigate to the `images` container. You should see the image you uploaded:
+   ![Storage account](./images/19-storage.png)
+1. Open the 'pets' container in the storage account and you should see the pet you reported:
+   ![Storage account](./images/20-storage.png)
+
+Done! You've now deployed PetSpotR to Azure using Bicep and used cloud Dapr bindings to connect to Azure services.

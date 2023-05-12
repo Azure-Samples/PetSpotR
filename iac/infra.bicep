@@ -1,6 +1,8 @@
 // Infrastructure ----------------------------------------------------
 
-param location string = resourceGroup().location
+targetScope = 'subscription'
+
+param location string = 'westus2'
 
 @description('Which mode to deploy the infrastructure. Defaults to cloud, which deploys everything. The mode dev only deploys the resources needed for local development.')
 @allowed([
@@ -9,15 +11,14 @@ param location string = resourceGroup().location
 ])
 param mode string = 'cloud'
 
-module storage 'infra/storage.bicep' = {
-  name: 'storage'
-  params: {
-    location: location
-  }
+resource resourceGroup 'Microsoft.Resources/resourceGroups@2022-09-01' = {
+  name: 'build-lab'
+  location: location
 }
 
-module registry 'infra/container-registry.bicep' = {
-  name: 'registry'
+module storage 'infra/storage.bicep' = {
+  name: 'storage'
+  scope: resourceGroup
   params: {
     location: location
   }
@@ -25,6 +26,7 @@ module registry 'infra/container-registry.bicep' = {
 
 module servicebus 'infra/servicebus.bicep' = if (mode == 'cloud') {
   name: 'servicebus'
+  scope: resourceGroup
   params: {
     location: location
   }
@@ -32,8 +34,12 @@ module servicebus 'infra/servicebus.bicep' = if (mode == 'cloud') {
 
 module aks 'infra/aks.bicep' = if (mode == 'cloud') {
   name: 'aks'
+  scope: resourceGroup
   params: {
     location: location
   }
 }
 
+output clusterName string = aks.outputs.aksCluster
+output storageAccountName string = storage.outputs.storageAccountName
+output serviceBusAuthorizationRuleName string = servicebus.outputs.serviceBusAuthRuleName
