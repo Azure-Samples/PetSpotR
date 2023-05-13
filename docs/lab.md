@@ -11,6 +11,14 @@ As part of this lab, you will:
 1. Create a Bicep template and deploy the application to Azure
 1. Use KEDA to scale the application to handle increased load
 
+## Getting started
+
+Welcome to the lab!
+
+Begin by logging in with your VM password:
+
+@lab.VirtualMachine(BuildBaseVM).Password
+
 ## Exercise 1: Run PetSpotR in a GitHub Codespace
 
 Cloud computing has exploded in the past few decades. But the cloud can be used for more than just running production workloads - it can host your development environments as well!
@@ -91,15 +99,15 @@ You should now drop directly into a Codespace with the PetSpotR repository clone
 3. Let's take a look at how to customize your Codespace. Open `.devcontainer/devcontainer.json` to see the Codespace definition:
 
    ```bash
-    code .devcontainer/devcontainer.json
-    ```
+   code .devcontainer/devcontainer.json
+   ```
 
-    You'll notice some important properties:
-
-    - `image` - The Docker image used to create the Codespace
-    - `onCreateCommand` - The command to run when the Codespace is created, which can be used to install dependencies or other setup tasks
-    - `features` - A list of [features](https://github.com/devcontainers/features) to install in the Codespace, such as Python support, the Azure CLI, or Docker-in-Docker support
-    - `customizations.vscode.extensions` - A list of Visual Studio Code extensions to install in the Codespace
+   You'll notice some important properties:
+   
+   - `image` - The Docker image used to create the Codespace
+   - `onCreateCommand` - The command to run when the Codespace is created, which can be used to install dependencies or other setup tasks
+   - `features` - A list of [features](https://github.com/devcontainers/features) to install in the Codespace, such as Python support, the Azure CLI, or Docker-in-Docker support
+   - `customizations.vscode.extensions` - A list of Visual Studio Code extensions to install in the Codespace
 
 ### 1.3 Customize your Codespace
 
