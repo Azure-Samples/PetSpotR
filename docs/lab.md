@@ -416,9 +416,12 @@ You're now ready to deploy your application to Azure. You'll use the Azure CLI t
 
 Now that you've deployed your infrastructure and application you're ready to access the PetSpotR application!
 
-1. In the [Azure portal](https://portal.azure.com) navigate to your `build-lab` resource group and open the 'petspotr' AKS cluster.
-1. Select `Services and ingresses` and click on the external IP address of your cluster. You should see the PetSpotR application:
-   ![PetSpotR application](./images/18-petspotr.png)
+1. Get the hostname of your HTTP ingress:
+
+    ```bash
+    kubectl get ingress
+    ```
+
 1. Try out the application by reporting a lost pet
 1. Open the storage account in the Azure portal and navigate to the `images` container. You should see the image you uploaded:
    ![Storage account](./images/19-storage.png)
