@@ -218,34 +218,34 @@ Your next task is to use GitHub Copilot to add Dapr to the PetSpotR application.
 
 6. Repeat the above process to add a new method to publish the lost pet to the "lostPet" topic. Try the following comment:
 
-   ```csharp
-   // Publish a message to the lostPet Dapr pub/sub topic on the pubsub broker
-   ```
+    ```csharp
+    // Publish a message to the lostPet Dapr pub/sub topic on the pubsub broker
+    ```
 
-   You should end up with the following method:
+    You should end up with the following method:
 
-   ```csharp
-   // Publish a message to the lostPet Dapr pub/sub topic on the pubsub broker
-   public async Task PublishLostPetAsync(DaprClient daprClient)
-       {
-           try
-           {
-               await daprClient.PublishEventAsync(
-                   pubsubName: "pubsub",
-                   topicName: "lostPet",
-                   data: new Dictionary<string, string>
-                   {
-                       { "petId", ID }
-                   }
-               );
-           }
-           catch
-           {
-               throw;
-           }
-
-       }
-   ```
+    ```csharp
+    // Publish a message to the lostPet Dapr pub/sub topic on the pubsub broker
+    public async Task PublishLostPetAsync(DaprClient daprClient)
+        {
+            try
+            {
+                await daprClient.PublishEventAsync(
+                    pubsubName: "pubsub",
+                    topicName: "lostPet",
+                    data: new Dictionary<string, string>
+                    {
+                        { "petId", ID }
+                    }
+                );
+            }
+            catch
+            {
+                throw;
+            }
+ 
+        }
+    ```
 7. Select the `Run and Debug` (![](images/extensions.png)) tab in the left-hand pane of the Codespace.
 8. Make sure the launch configuration is set to `✅ Debug with Dapr`
 9. Click the `Start Debugging` button (▶️) to launch PetSpotR locally
@@ -344,9 +344,9 @@ You're now ready to deploy your application to Azure. You'll use the Azure CLI t
 
 2. Deploy your iBicep file using `az deployment create`
 
-   ```bash
-   az deployment create --location westus2 --template-file ./iac/infra.bicep
-   ```
+    ```bash
+    az deployment create --location westus2 --template-file ./iac/infra.bicep
+    ```
 3. You can visit https://portal.azure.com to see the resources being deployed under your new `build-lab` resource group.
     ![Azure resources](./images/17-azureportal.png)
 
@@ -356,15 +356,15 @@ Now that you've deployed your infrastructure, you're ready to configure your clu
 
 1. Run `az aks get-credentials` to get the credentials for your AKS cluster:
 
-   ```bash
-   az aks get-credentials --resource-group build-lab --name petspotr
-   ```
+    ```bash
+    az aks get-credentials --resource-group build-lab --name petspotr
+    ```
 
 2. Run `dapr init -k` to install Dapr into your Kubernetes cluster:
 
-   ```bash
-   dapr init -k
-   ```
+    ```bash
+    dapr init -k
+    ```
 
 Done! You now have Dapr installed on your AKS cluster.
 
@@ -374,17 +374,17 @@ Now that you've installed Dapr on your cluster, you're ready to deploy the Dapr 
 
 1. Open `iac/dapr/azure/statestore.yaml` to open the YAML template for your Dapr state store component:
 
-    ```bash
-    code ./iac/dapr/azure/statestore.yaml
-    ```
+     ```bash
+     code ./iac/dapr/azure/statestore.yaml
+     ```
 
-    You can also view images.yaml and pubsub.yaml.
+     You can also view images.yaml and pubsub.yaml.
 
 2. Deploy these components using `kubectl apply`:
 
-   ```bash
-   kubectl apply -f ./iac/dapr/azure
-   ```
+    ```bash
+    kubectl apply -f ./iac/dapr/azure
+    ```
 
 3. Done! You've now added Dapr components to your cluster.
 
@@ -408,9 +408,9 @@ You're now ready to deploy your application to Azure. You'll use the Azure CLI t
 
 3. Deploy your application using `az deployment create`
 
-   ```bash
-   az deployment create --location westus2 --template-file ./iac/app.bicep
-   ```
+    ```bash
+    az deployment group create --resource-group "build-lab" --template-file ./iac/app.bicep
+    ```
 
 ### 3.6 Access the PetSpotR application
 
