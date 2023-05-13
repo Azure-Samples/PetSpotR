@@ -224,28 +224,28 @@ Your next task is to use GitHub Copilot to add Dapr to the PetSpotR application.
 
    You should end up with the following method:
 
-    ```csharp
-    // Publish a message to the lostPet Dapr pub/sub topic on the pubsub broker
-    public async Task PublishLostPetAsync(DaprClient daprClient)
-        {
-            try
-            {
-                await daprClient.PublishEventAsync(
-                    pubsubName: "pubsub",
-                    topicName: "lostPet",
-                    data: new Dictionary<string, string>
-                    {
-                        { "petId", ID }
-                    }
-                );
-            }
-            catch
-            {
-                throw;
-            }
+   ```csharp
+   // Publish a message to the lostPet Dapr pub/sub topic on the pubsub broker
+   public async Task PublishLostPetAsync(DaprClient daprClient)
+       {
+           try
+           {
+               await daprClient.PublishEventAsync(
+                   pubsubName: "pubsub",
+                   topicName: "lostPet",
+                   data: new Dictionary<string, string>
+                   {
+                       { "petId", ID }
+                   }
+               );
+           }
+           catch
+           {
+               throw;
+           }
 
-        }
-    ```
+       }
+   ```
 7. Select the `Run and Debug` (![](images/extensions.png)) tab in the left-hand pane of the Codespace.
 8. Make sure the launch configuration is set to `✅ Debug with Dapr`
 9. Click the `Start Debugging` button (▶️) to launch PetSpotR locally
