@@ -23,6 +23,7 @@
         "ms-azuretools.vscode-dapr",
         "ms-dotnettools.csharp",
         "ms-azuretools.vscode-docker",
+        "ms-azuretools.vscode-bicep",
         "ms-python.python",
         "dunn.redis"
       ]
