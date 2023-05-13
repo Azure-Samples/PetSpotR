@@ -336,7 +336,7 @@ We're now ready to deploy PetSpotR to Azure. You'll use Bicep to model your infr
 
 You're now ready to deploy your application to Azure. You'll use the Azure CLI to deploy your infrastructure:
 
-1. Run `az login` to log in to Azure. You'll be prompted to open a browser window to authenticate. Use these credentials:
+1. Run `az login --use-device-code` to log in to Azure. You'll need to use a device code because you're running in a Codespace.
    - @lab.CloudPortalCredential(User1).Username
    - @lab.CloudPortalCredential(User1).Password
 
@@ -352,7 +352,7 @@ You're now ready to deploy your application to Azure. You'll use the Azure CLI t
 
 ### 3.3 Configure your cluster
 
-Now that you've deployed your infrastructure, you're ready to configure your cluster. You'll use the Helm CLI to install the Dapr and KEDA Helm charts:
+Now that you've deployed your infrastructure, you're ready to configure your cluster. You'll use the Dapr CLI to install Dapr.
 
 1. Run `az aks get-credentials` to get the credentials for your AKS cluster:
 
@@ -360,26 +360,13 @@ Now that you've deployed your infrastructure, you're ready to configure your clu
    az aks get-credentials --resource-group build-lab --name petspotr
    ```
 
-2. Run `helm repo add` to add the Dapr and KEDA Helm repositories:
+2. Run `dapr init -k` to install Dapr into your Kubernetes cluster:
 
    ```bash
-   helm repo add dapr https://daprio.azurecr.io/helm/v1/repo
-   helm repo add kedacore https://kedacore.github.io/charts
+   dapr init -k
    ```
 
-3. Run `helm repo update` to update the Helm repositories:
-
-   ```bash
-    helm repo update
-    ```
-4. Run `helm install` to install the Dapr and KEDA Helm charts:
-
-   ```bash
-   helm install dapr dapr/dapr --namespace dapr-system
-   helm install keda kedacore/keda --namespace keda
-   ```
-
-Done! You now have Dapr and KEDA installed on your AKS cluster.
+Done! You now have Dapr installed on your AKS cluster.
 
 ### 3.4 Deploy Dapr cloud components
 
