@@ -6,6 +6,8 @@ It also leverages popular open-source projects such as Dapr and Keda to provide 
 
 ![Logo](./img/logo.svg)
 
+**Note:** An **[interactive lab simulation](https://mslabs.cloudguides.com/guides/Build%20intelligent%20applications%20with%20Azure%20Kubernetes%20Service%20and%20GitHub%20Copilot)** is available that allows you to click through this lab at your own pace. You may find slight differences between the interactive simulation and the hosted lab, but the core concepts and ideas being demonstrated are the same.
+
 ## Featured technologies
 
 - [Bicep](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview) - Infrastructure as code
