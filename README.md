@@ -109,6 +109,7 @@ The services in this application can be run locally using the Dapr CLI. This is 
 1. Run the backend
    ```bash
    cd src/backend
+   pip install -r ./requirements.txt
    dapr run --app-id backend --app-port 6002 --components-path ../../iac/dapr/local -- python app.py
    ```
 1. Run the frontend
