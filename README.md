@@ -132,11 +132,11 @@ The services in this application can be run locally using the Dapr CLI. This is 
    ```
 1. Deploy the infrastructure
    ```bash
-   az deployment group deployment create --resource-group myrg --template-file ./iac/infra.json
+   az deployment group create --resource-group myrg --template-file ./iac/infra.bicep
    ```
 1. Deploy the configuration
    ```bash
-   az deployment group deployment create --resource-group myrg --template-file ./iac/config.json
+   az deployment group create --resource-group myrg --template-file ./iac/config.bicep
    ```
 1. Get AKS credentials
    ```bash
@@ -150,12 +150,13 @@ The services in this application can be run locally using the Dapr CLI. This is 
    helm upgrade dapr dapr/dapr --install --version=1.10 --namespace dapr-system --create-namespace --wait
    helm upgrade keda kedacore/keda --install --version=2.9.4 --namespace keda --create-namespace --wait
    ```
-1. Log into Azure Container Registry
-   You can get your registry name from your resource group in the Azure Portal
+1. Log into Azure Container Registry (replace `myacr` with your registry name).
+   You can get your registry name from your resource group in the Azure Portal or
+   by running `az acr list -g myrg -otable`.
    ```bash
    az acr login --name myacr
    ```
-1. Build and push containers
+1. Build and push containers (replace `myacr` with your registry name).
    ```bash
    docker build -t myacr.azurecr.io/backend:latest ./src/backend
    docker build -t myacr.azurecr.io/frontend:latest ./src/frontend
@@ -164,10 +165,10 @@ The services in this application can be run locally using the Dapr CLI. This is 
    ```
 1. Deploy the application
    ```bash
-   az deployment group deployment create --resource-group myrg --template-file ./iac/app.json
+   az deployment group create --resource-group myrg --template-file ./iac/app.bicep
    ```
 1. Get your frontend URL
    ```bash
-   kubectl get svc
+   kubectl get ingress
    ```
 1. Navigate to your frontend URL
