@@ -1,3 +1,21 @@
+// You don't have issues open, so I'm informing you that this deployment is failing with "Bad request":
+// {
+//     "status": "Failed",
+//     "error": {
+//         "code": "ValidationError",
+//         "target": "workspace",
+//         "message": "Missing dependent resources in workspace json",
+//         "details": [
+//             {
+//                 "code": "Invalid",
+//                 "target": "workspace",
+//                 "message": "Missing dependent resources in workspace json",
+//                 "details": []
+//             }
+//         ]
+//     }
+// }
+
 @description('Azure region to deploy resources into. Defaults to location of target resource group')
 param location string = resourceGroup().location
 
