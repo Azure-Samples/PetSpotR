@@ -102,7 +102,11 @@ The services in this application can be run locally using the Dapr CLI. This is 
 1. Configure your Dapr images component for Windows or Mac
    1. Open ./iac/dapr/local/images.yaml
    1. Uncomment the appropriate section for your OS, and comment out the other section
-1. Deploy the required Azure resources
+1. Create a resource group
+   ```bash
+   az group create -g myrg --location <location-deployment> # find locations with az account list-locations
+   ```
+3. Deploy the required Azure resources
    ```bash
    az deployment group create --resource-group myrg --template-file ./iac/infra.bicep --parameters mode=dev
    ```
