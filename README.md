@@ -130,9 +130,13 @@ The services in this application can be run locally using the Dapr CLI. This is 
    git clone https://github.com/azure-samples/petspotr.git
    cd petspotr
    ```
+1. Create a resource group first
+   ```bash
+   az group create --name myrg --location <location>
+   ```
 1. Deploy the infrastructure
    ```bash
-   az deployment group deployment create --resource-group myrg --template-file ./iac/infra.json
+   az deployment group create --resource-group myrg --template-file ./iac/infra.json
    ```
 1. Deploy the configuration
    ```bash
