@@ -15,8 +15,8 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
+    - uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3.9.1
       with:
         node-version: 16
     - name: Install dependencies
@@ -31,7 +31,7 @@ jobs:
       run: |
         cd tests/playwright
         npx playwright test
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
       if: always()
       with:
         name: playwright-report
